@@ -8,15 +8,14 @@ export interface IGeoJSON {
 
 export interface IFeature {
   
-    // feature for Mapbox DC
     type: string; //'Feature',
     geometry: {
       type: string; //'Point',
       coordinates: any[];
-      //-77.03238901390978, 38.913188059745586
+      //Lng, Lat
     };
     properties: {
-      title: string; //'Mapbox DC'
+      title: string; 
     };
   
 }

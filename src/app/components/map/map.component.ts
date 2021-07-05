@@ -3,7 +3,7 @@ import { MapService } from '../../services/map.service';
 
 import * as mapboxgl from 'mapbox-gl';
 import { environment } from '../../../environments/environment';
-import { IFeature, IGeoJSON } from './geojso.interface';
+import { IFeature, IGeoJSON } from '../../models/geojson.interface';
 
 @Component({
   selector: 'app-map',
@@ -20,35 +20,23 @@ export class MapComponent implements OnInit {
 
   ngOnInit() {
     this.setList();
-
-    // this.buildGeoJson();
-
     this.createMap();
   }
 
   createMap() {
-    // mapboxgl.accessToken = environment.mapbox.accessToken;
+   
     this.mapa = new mapboxgl.Map({
       container: 'map',
-      style:
-        'https://api.maptiler.com/maps/eef16200-c4cc-4285-9370-c71ca24bb42d/style.json?key=CH1cYDfxBV9ZBu1lHGqh',
+      style: environment.mapbox.style,
       center: [-91.2619023159175, 43.481780997799746], // LNG, LAT original
-      // style: 'mapbox://styles/mapbox/light-v10',
-      // style: 'mapbox://styles/mapbox/streets-v11',
-      // center: [-95.5637, 29.6878],
-      zoom: 3, // starting zoom
+       zoom: 6.5, // starting zoom
       accessToken: environment.mapbox.accessToken,
     });
-    // this.createMarker(-91.2619023159175, 43.481780997799746);
-
-    // this.mapa.on('load', () => {
-    //   this.mapa.addSource('points', JSON.stringify( this.geojson))
-    // })
+   
     // Begin
     this.mapa.on('load', () => {
       // Add an image to use as a custom marker
       this.mapa.loadImage(
-        // 'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png',
         '/assets/images/map-circle-red.png',
         (error, image) => {
           if (error) throw error;
@@ -79,30 +67,13 @@ export class MapComponent implements OnInit {
         }
       );
     });
-
-    // End
   }
 
-  createMarker(lng: number, lat: number) {
-    const marker = new mapboxgl.Marker({
-      color: '#3FB1CE',
-      draggable: true,
-      anchor: 'bottom-right',
-    })
-      .setLngLat([lng, lat])
-      .addTo(this.mapa);
-
-    marker.on('drag', () => {
-      console.log(marker.getLngLat());
-    });
-  }
-
+  //fetch data and load the coordinates
   setList() {
     this.map.fetchItems().subscribe((data) => {
       this.records = data.records;
-      // this.fetchData = data
       console.log(this.records);
-      // console.log(this.records.records)
       this.buildGeoJson();
     });
   }
@@ -115,7 +86,6 @@ export class MapComponent implements OnInit {
         geometry: {
           type: 'Point',
           coordinates: [record.geocode.Longitude, record.geocode.Latitude],
-          //-77.03238901390978, 38.913188059745586
         },
         properties: {
           title: record.name,
@@ -126,7 +96,7 @@ export class MapComponent implements OnInit {
       features.push(feature);
     });
 
-    console.log('features', features);
+    // console.log('features', features);
     this.features = features;
 
     // after iteration then now build the GeoJSON interface and set content
@@ -142,18 +112,4 @@ export class MapComponent implements OnInit {
     console.log('GeoJson', geojson);
   }
 
-  // geojson = {
-  //   'type': 'FeatureCollection',
-  //   'features': [
-  //       {
-  //           'type': 'Feature',
-  //           'properties': {
-  //               'message': 'Foo',
-  //               'iconSize': [60, 60]
-  //           },
-  //           'geometry': {
-  //               'type': 'Point',
-  //               'coordinates': [-66.324462, -16.024695]
-  //           }
-  //       },
 }
