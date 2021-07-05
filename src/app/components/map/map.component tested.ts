@@ -14,7 +14,6 @@ export class MapComponent implements OnInit {
   records: any[] = [];
   mapa: mapboxgl.Map;
   geojson: any;
-  features: any[];
 
   constructor(private map: MapService) {}
 
@@ -31,12 +30,11 @@ export class MapComponent implements OnInit {
     this.mapa = new mapboxgl.Map({
       container: 'map',
       style:
-        'https://api.maptiler.com/maps/eef16200-c4cc-4285-9370-c71ca24bb42d/style.json?key=CH1cYDfxBV9ZBu1lHGqh',
-      center: [-91.2619023159175, 43.481780997799746], // LNG, LAT original
+        'https://api.maptiler.com/maps/eef16200-c4cc-4285-9370-c71ca24bb42d/style.json?key=CH1cYDfxBV9ZBu1lHGqh ',
+      center: [-91.2619023159175, 43.481780997799746], // LNG, LAT
       // style: 'mapbox://styles/mapbox/light-v10',
-      // style: 'mapbox://styles/mapbox/streets-v11',
-      // center: [-95.5637, 29.6878],
-      zoom: 3, // starting zoom
+      // center: [-96, 37.8],
+      zoom: 2, // starting zoom
       accessToken: environment.mapbox.accessToken,
     });
     // this.createMarker(-91.2619023159175, 43.481780997799746);
@@ -48,9 +46,8 @@ export class MapComponent implements OnInit {
     this.mapa.on('load', () => {
       // Add an image to use as a custom marker
       this.mapa.loadImage(
-        // 'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png',
-        '/assets/images/map-circle-red.png',
-        (error, image) => {
+        'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png',
+         (error, image) => {
           if (error) throw error;
           this.mapa.addImage('custom-marker', image);
           // Add a GeoJSON source with 2 points
@@ -58,7 +55,63 @@ export class MapComponent implements OnInit {
             type: 'geojson',
             data: {
               type: 'FeatureCollection',
-              features: this.features,
+              features: [
+                {
+                  // feature for Mapbox DC
+                  type: 'Feature',
+                  geometry: {
+                    type: 'Point',
+                    coordinates: [-77.03238901390978, 38.913188059745586],
+                  },
+                  properties: {
+                    title: 'Mapbox DC',
+                  },
+                },
+                {
+                  // feature for Mapbox SF
+                  type: 'Feature',
+                  geometry: {
+                    type: 'Point',
+                    coordinates: [-122.414, 37.776],
+                  },
+                  properties: {
+                    title: 'Mapbox SF',
+                  },
+                },
+                {
+                  // feature for Mapbox SF
+                  type: 'Feature',
+                  geometry: {
+                    type: 'Point',
+                    coordinates: [-95.5637 , 29.6878],
+                  },
+                  properties: {
+                    title: 'Donald',
+                  },
+                },
+                {
+                  // feature for Mapbox SF
+                  type: 'Feature',
+                  geometry: {
+                    type: 'Point',
+                    coordinates: [-95.602 , 29.6804],
+                  },
+                  properties: {
+                    title: 'Enoch',
+                  },
+                },
+                {
+                  // feature for Mapbox SF
+                  type: 'Feature',
+                  geometry: {
+                    type: 'Point',
+                    coordinates: [-95.6092 , 29.7189],
+                  },
+                  properties: {
+                    title: 'Akwasi',
+                  },
+                }
+              ],
             },
           });
 
@@ -114,7 +167,9 @@ export class MapComponent implements OnInit {
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: [record.geocode.Longitude, record.geocode.Latitude],
+          coordinates: [
+            `${record.geocode.Longitude} , ${record.geocode.Latitude}`,
+          ],
           //-77.03238901390978, 38.913188059745586
         },
         properties: {
@@ -127,7 +182,6 @@ export class MapComponent implements OnInit {
     });
 
     console.log('features', features);
-    this.features = features;
 
     // after iteration then now build the GeoJSON interface and set content
     let geojson: IGeoJSON = {

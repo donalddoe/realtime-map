@@ -1,11 +1,11 @@
-<!-- <div id="map" class="map-container"> </div> -->
+<div id="map" class="map-container"> </div>
 
 <main *ngIf="records">
   <mat-grid-list cols="4" rowHeight="5:5" [style.backgroundColor]="'lightgray'">
     <mat-grid-tile
     *ngFor="let record of records" >
 
-     {{record}}
+     {{record.name}}
 
     </mat-grid-tile>
 

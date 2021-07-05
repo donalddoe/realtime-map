@@ -31,26 +31,24 @@ export class MapComponent implements OnInit {
     this.mapa = new mapboxgl.Map({
       container: 'map',
       style:
-        'https://api.maptiler.com/maps/eef16200-c4cc-4285-9370-c71ca24bb42d/style.json?key=CH1cYDfxBV9ZBu1lHGqh',
-      center: [-91.2619023159175, 43.481780997799746], // LNG, LAT original
-      // style: 'mapbox://styles/mapbox/light-v10',
-      // style: 'mapbox://styles/mapbox/streets-v11',
-      // center: [-95.5637, 29.6878],
-      zoom: 3, // starting zoom
+        'https://api.maptiler.com/maps/eef16200-c4cc-4285-9370-c71ca24bb42d/style.json?key=CH1cYDfxBV9ZBu1lHGqh ',
+      // center: [-91.2619023159175, 43.481780997799746], // LNG, LAT
+      center: [-95.6092 , 29.7189], // LNG, LAT
+   
+      zoom: 4.5, // starting zoom
       accessToken: environment.mapbox.accessToken,
     });
-    // this.createMarker(-91.2619023159175, 43.481780997799746);
+    // this.createMarker(-91.2619023159175, 43.481780997799746); // original - wiscon michi
+    // this.createMarker(-95.6092 , 29.7189);
+    // this.createMarker(-95.602 , 29.6804);
 
-    // this.mapa.on('load', () => {
-    //   this.mapa.addSource('points', JSON.stringify( this.geojson))
-    // })
+ 
     // Begin
     this.mapa.on('load', () => {
       // Add an image to use as a custom marker
       this.mapa.loadImage(
-        // 'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png',
-        '/assets/images/map-circle-red.png',
-        (error, image) => {
+        'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png',
+         (error, image) => {
           if (error) throw error;
           this.mapa.addImage('custom-marker', image);
           // Add a GeoJSON source with 2 points
@@ -60,6 +58,7 @@ export class MapComponent implements OnInit {
               type: 'FeatureCollection',
               features: this.features,
             },
+            
           });
 
           // Add a symbol layer
@@ -110,11 +109,13 @@ export class MapComponent implements OnInit {
   buildGeoJson() {
     let features = [];
     this.records.map((record) => {
-      let feature: IFeature = {
+      let feature = {
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: [record.geocode.Longitude, record.geocode.Latitude],
+          coordinates: [
+            `${record.geocode.Longitude} , ${record.geocode.Latitude}`,
+          ],
           //-77.03238901390978, 38.913188059745586
         },
         properties: {
@@ -127,7 +128,6 @@ export class MapComponent implements OnInit {
     });
 
     console.log('features', features);
-    this.features = features;
 
     // after iteration then now build the GeoJSON interface and set content
     let geojson: IGeoJSON = {
@@ -138,8 +138,14 @@ export class MapComponent implements OnInit {
       },
     };
 
-    this.geojson = geojson;
+    // this.geojson = geojson;
+
+
+    // setting only features
+    this.features = features;
     console.log('GeoJson', geojson);
+
+    // this.createMap();
   }
 
   // geojson = {

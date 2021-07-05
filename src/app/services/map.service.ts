@@ -13,8 +13,8 @@ export class MapService {
 
 
 
-private url = "https://app.smartapartmentdata.com/List/json/listItems.aspx?listID=5638557&token=A0E2523B25B805CBB6F8EC9D98AF56457EE7A255&receipt=undefined";
-
+// private url = "https://app.smartapartmentdata.com/List/json/listItems.aspx?listID=5638557&token=A0E2523B25B805CBB6F8EC9D98AF56457EE7A255&receipt=undefined";
+private url = "https://app.smartapartmentdata.com/List/json/listItems.aspx?listID=5363950&token=5AE7DFB40500DDC03BC84BD3F0A8AC0F18784B1E&receipt=undefined"
 httpOptions = {
     headers: new HttpHeaders({
       'Access-Control-Allow-Origin': '*',
