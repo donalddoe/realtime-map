@@ -16,7 +16,7 @@ export class MapComponent implements OnInit {
   mapa: mapboxgl.Map;
   geojson: any;
   features: any[];
-  mapInfo;
+  mapInfo: any;
 
   constructor(private map: MapService, public loaderService: LoaderService) {}
 
@@ -25,16 +25,18 @@ export class MapComponent implements OnInit {
     this.createMap();
   }
 
-//Create map with coordinates
+  priceIcons = ['assets/images/1-bed.svg', 'assets/images/2-bed.svg', 'assets/images/3-bed.svg'];
+
+  //Create map with coordinates
   createMap() {
     this.mapa = new mapboxgl.Map({
       container: 'map',
       style: environment.mapbox.style,
       center: [-91.2619023159175, 43.481780997799746], // LNG, LAT original
-       zoom:  3.347316641002759, // starting zoom
+      zoom: 3.347316641002759, // starting zoom
       accessToken: environment.mapbox.accessToken,
     });
-   
+
     // Begin
     this.mapa.on('load', () => {
       // Add an image to use as a custom marker
@@ -76,7 +78,7 @@ export class MapComponent implements OnInit {
     this.map.fetchItems().subscribe((data) => {
       this.records = data.records;
       this.mapInfo = data.agentInfo;
-      console.log(this.mapInfo)
+      console.log(this.mapInfo);
       console.log(this.records);
       this.buildGeoJson();
     });
@@ -115,5 +117,4 @@ export class MapComponent implements OnInit {
     this.geojson = geojson;
     console.log('GeoJson', geojson);
   }
-
 }
