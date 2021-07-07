@@ -1,7 +1,7 @@
 <div *ngIf="loaderService.isLoading | async" class="loader-container">
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
-<mat-drawer-container class="sidebar-container" aria-hidden="true">
+<mat-drawer-container class="sidebar-container">
   <mat-drawer mode="side" tabindex="-1" style="transform: none; visibility: visible;" opened class="drawer-content">
     <mat-toolbar class="toolbar">
       <span>{{mapInfo.firstname}} {{mapInfo.lastname}} | {{mapInfo.company}}</span>
@@ -26,7 +26,7 @@
     <!-- <mat-toolbar class="sub-toolbar">
       <span >{{mapInfo.firstname}} {{mapInfo.lastname}} | {{mapInfo.company}}</span>
     </mat-toolbar> -->
-    <main *ngIf="records"  fxLayout="column" fxLayoutGap="14px" apperstorescroll class="list-container">
+    <main *ngIf="records"  fxLayout="column" fxLayoutGap="14px">
         <mat-card class="img-container" *ngFor="let record of records" >
           <mat-card-header>
             <mat-card-title>{{record.name}}</mat-card-title>
