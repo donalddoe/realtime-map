@@ -4,6 +4,7 @@ import { MapService } from '../../services/map.service';
 import * as mapboxgl from 'mapbox-gl';
 import { environment } from '../../../environments/environment';
 import { IFeature, IGeoJSON } from '../../models/geojson.interface';
+import { LoaderService } from 'src/app/loader/loader.service';
 
 @Component({
   selector: 'app-map',
@@ -15,21 +16,22 @@ export class MapComponent implements OnInit {
   mapa: mapboxgl.Map;
   geojson: any;
   features: any[];
+  mapInfo;
 
-  constructor(private map: MapService) {}
+  constructor(private map: MapService, public loaderService: LoaderService) {}
 
   ngOnInit() {
     this.setList();
     this.createMap();
   }
 
+//Create map with coordinates
   createMap() {
-   
     this.mapa = new mapboxgl.Map({
       container: 'map',
       style: environment.mapbox.style,
       center: [-91.2619023159175, 43.481780997799746], // LNG, LAT original
-       zoom: 6.5, // starting zoom
+       zoom:  3.347316641002759, // starting zoom
       accessToken: environment.mapbox.accessToken,
     });
    
@@ -69,10 +71,12 @@ export class MapComponent implements OnInit {
     });
   }
 
-  //fetch data and load the coordinates
+  //fetch data and load the url to get coordinates
   setList() {
     this.map.fetchItems().subscribe((data) => {
       this.records = data.records;
+      this.mapInfo = data.agentInfo;
+      console.log(this.mapInfo)
       console.log(this.records);
       this.buildGeoJson();
     });
