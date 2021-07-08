@@ -20,7 +20,7 @@ httpOptions = {
 
   constructor(private http: HttpClient) {}
 
-  fetchItems(): Observable<any> {
+  getListItems(): Observable<any> {
     return this.http.get(environment.baseUrl)
   };
 

@@ -8,11 +8,13 @@ import { MapComponent } from './components/map/map.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InterceptorService } from './loader/interceptor.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ListDetailsComponent } from './components/list-details/list-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MapComponent
+    MapComponent,
+    ListDetailsComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,
