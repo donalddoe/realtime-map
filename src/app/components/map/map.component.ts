@@ -24,7 +24,7 @@ export class MapComponent implements OnInit {
     this.setList();
     this.createMap();
   }
-
+//Bed images for the price
   priceIcons = ['assets/images/1-bed.svg', 'assets/images/2-bed.svg', 'assets/images/3-bed.svg'];
 
   //Create map with coordinates
@@ -32,8 +32,8 @@ export class MapComponent implements OnInit {
     this.mapa = new mapboxgl.Map({
       container: 'map',
       style: environment.mapbox.style,
-      center: [-91.2619023159175, 43.481780997799746], // LNG, LAT original
-      zoom: 3.347316641002759, // starting zoom
+      center: [-97.382, 32.729], // LNG, LAT original
+      zoom: 11.54, // starting zoom
       accessToken: environment.mapbox.accessToken,
     });
 
