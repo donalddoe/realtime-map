@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LoaderService } from 'src/app/loader/loader.service';
+import { MapService } from 'src/app/services/map.service';
 
 @Component({
   selector: 'app-list-details',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListDetailsComponent implements OnInit {
 
-  constructor() { }
+  mapDetails: any
+  constructor(private map: MapService, public loaderService: LoaderService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.setMapDetails()
   }
+
+  setMapDetails() {
+    this.map.getListDetails().subscribe(
+      (data) => { this.mapDetails = data
+          console.log(this.mapDetails)
+      })
+  }
+
 
 }

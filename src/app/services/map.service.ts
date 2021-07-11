@@ -24,6 +24,9 @@ httpOptions = {
     return this.http.get(environment.baseUrl)
   };
 
+  getListDetails(): Observable<any> {
+return this.http.get(environment.detailsUrl)
+  }
 
 
 

@@ -1,1 +1,75 @@
-<p>list-details works!</p>
+<div *ngIf="loaderService.isLoading | async" class="loader-container">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+<mat-drawer-container class="sidebar-container">
+  <mat-drawer mode="side" tabindex="-1" style="transform: none; visibility: visible;" opened class="drawer-content">
+    <mat-toolbar class="toolbar">
+      Back to Results
+    </mat-toolbar>
+    <div class="section-filter mat-background-accent"  *ngIf="mapDetails" >
+      <div class="filter-box">
+      <div class="filter-title"  *ngIf="mapDetails">
+          {{mapDetails.name}}
+          <mat-icon class="arrow-down">public</mat-icon>
+      </div>
+      <div class="filter-content">
+        {{mapDetails.city}}
+      </div>
+      </div>
+    </div>
+    <!-- <main   fxLayout="column" fxLayoutGap="14px"> -->
+      <mat-grid-list *ngIf="mapDetails" cols="4" rowHeight="5:5" [style.backgroundColor]="'lightgray'">
+        <mat-grid-tile
+      *ngFor="let mapPhoto of mapDetails.photos; let i = index;"
+         [colspan]="mapPhoto.cols"
+          gutterSize="1px"
+          >
+          <span *ngIf="mapDetails" class="map-images">
+              <img
+              mat-card-image src="{{mapPhoto}}">
+          </span>
+
+        </mat-grid-tile>
+      </mat-grid-list>
+    <!-- </main> -->
+    <mat-tab-group mat-stretch-tabs class="mat-tab-group"  *ngIf="mapDetails">
+      <mat-tab label="Plans">
+        <div class="specials">
+          <div class="specials__headings">SPECIALS</div>
+          <div class="specials__options">
+            <div class="specials__options_text">{{mapDetails.specials}}</div>
+          </div>
+        </div>
+        <div class="floorplans-table" *ngFor="let floorPlan of mapDetails.floorplans">
+          <div class="floorplans-table-row" *ngIf="mapDetails" >
+            <div class="floorplans-table-row-item">{{floorPlan.bed}}Bed, {{floorPlan.bath}}Bath</div>
+            <div class="floorplans-table-row-sq">{{floorPlan.sqft}} sqft</div>
+          </div>
+          <div class="floorplan-table-row" *ngIf="mapDetails">
+            <div class="floorplan-table-row-item image-text">
+              <div class="floorplans-table-row-item image-text">{{ floorPlan.washerDryer}}</div>
+            </div>
+          </div>
+          <div class="floorplan-table-row" *ngIf="mapDetails">
+            <div class="floorplan-table-row-item price">${{floorPlan.price}} - ${{floorPlan.priceMax}}</div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Overview">
+        <mat-list class="mat-list-base">
+          <mat-list-item>
+            <div class="mat-list-item-content">
+              <div class="mat-list-item-ripple mat-ripple"></div>
+              <mat-icon class="mat-list-icon">pets</mat-icon>
+              <div class="mat-list-text" *ngIf="mapDetails">
+                <span class="mat-line" matLine></span>
+              </div>
+            </div>
+          </mat-list-item>
+        </mat-list>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-drawer>
+  <mat-drawer-content>
+  </mat-drawer-content>
+</mat-drawer-container>
