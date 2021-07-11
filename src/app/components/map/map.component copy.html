@@ -27,7 +27,7 @@
       <span >{{mapInfo.firstname}} {{mapInfo.lastname}} | {{mapInfo.company}}</span>
     </mat-toolbar> -->
     <main *ngIf="records"  fxLayout="column" fxLayoutGap="14px">
-        <mat-card (click)="sideClick(record)" class="card-container" *ngFor="let record of records" >
+        <mat-card class="card-container" *ngFor="let record of records" >
           <mat-card-header>
             <mat-card-title>{{record.name}}</mat-card-title>
             <mat-card-subtitle>{{record.streetAddress}}, {{record.city}}</mat-card-subtitle>
@@ -44,16 +44,6 @@
     </main>
   </mat-drawer>
   <mat-drawer-content>
-    <!-- Map start -->
     <div id="map" class="map-container"> </div>
-<!-- 
-    <mgl-map [center]="initialCenter" [zoom]="[initialZoom]" (load)="createMap()">
-    <mgl-marker *ngFor="let feature of features" [feature]="feature">
-      <div (click)="markerClick(feature)">
-        <img width="20" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Map_marker.svg/780px-Map_marker.svg.png" />
-      </div>
-    </mgl-marker>
-  </mgl-map> -->
-    <!-- Map end -->
   </mat-drawer-content>
 </mat-drawer-container>

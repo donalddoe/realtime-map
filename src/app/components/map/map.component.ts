@@ -24,9 +24,34 @@ export class MapComponent implements OnInit {
     this.setList();
     this.createMap();
   }
+
+  initialCenter = {
+    lat: 32.729,
+    lng: -97.382
+  };
+  initialZoom = 11.54;
 //Bed images for the price
   priceIcons = ['assets/images/1-bed.svg', 'assets/images/2-bed.svg', 'assets/images/3-bed.svg'];
 
+  markerClick(marker: any) {
+    console.log('makr', marker);
+    console.log('type of', typeof(marker))
+
+    this.flyTo(marker.geometry.coordinates);
+    
+  }
+
+  flyTo (center, zoom = 15.5) {
+    this.mapa.flyTo({
+      center,
+      zoom
+    });
+  }
+
+  sideClick (feat) {
+    console.log('feat', feat);
+    this.flyTo(new mapboxgl.LngLat(feat.geocode.Longitude, feat.geocode.Latitude))
+  }
   //Create map with coordinates
   createMap() {
     this.mapa = new mapboxgl.Map({
@@ -36,6 +61,8 @@ export class MapComponent implements OnInit {
       zoom: 11.54, // starting zoom
       accessToken: environment.mapbox.accessToken,
     });
+
+    
 
     // Begin
     this.mapa.on('load', () => {
@@ -68,6 +95,18 @@ export class MapComponent implements OnInit {
               'text-anchor': 'top',
             },
           });
+
+          this.mapa.on('click', (e) => {
+            this.flyTo(e.lngLat);
+
+            // console.log(e);
+    
+            //   this.mapa.setFeatureState (e.point, {radius: 100, layer: 'points'}, function(err, features) {
+            //         console.log(features[0]);
+        
+            //   });
+        
+            });
         }
       );
     });
