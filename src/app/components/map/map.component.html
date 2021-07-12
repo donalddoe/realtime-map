@@ -3,26 +3,29 @@
 </div>
 <mat-drawer-container class="sidebar-container">
   <mat-drawer mode="side" tabindex="-1" style="transform: none; visibility: visible;" opened class="drawer-content">
-    <mat-toolbar class="toolbar" *ngIf="mapInfo">
-      <span>{{mapInfo.firstname}} {{mapInfo.lastname}} | {{mapInfo.company}}</span>
-    </mat-toolbar>
-    <div class="section-filter mat-background-accent">
-      <div class="filter-box">
-      <div class="filter-title">
-          Rent
-        <img class="arrow-down" src="../../../assets/images/arrow-down-white.svg">
-      </div>
-      <div class="filter-content"> $726 - $1,126</div>
-      </div>
-      <div class="filter-box">
+    <div class="toolbar-section">
+      <mat-toolbar class="toolbar" *ngIf="mapInfo">
+        <span>{{mapInfo.firstname}} {{mapInfo.lastname}} | {{mapInfo.company}}</span>
+      </mat-toolbar>
+      <div class="section-filter mat-background-accent">
+        <div class="filter-box">
         <div class="filter-title">
-          Bedrooms
+            Rent
           <img class="arrow-down" src="../../../assets/images/arrow-down-white.svg">
         </div>
-      <div class="filter-content"> Studio, 1, 2, 3 </div>
+        <div class="filter-content"> $726 - $1,126</div>
         </div>
+        <div class="filter-box">
+          <div class="filter-title">
+            Bedrooms
+            <img class="arrow-down" src="../../../assets/images/arrow-down-white.svg">
+          </div>
+        <div class="filter-content"> Studio, 1, 2, 3 </div>
+          </div>
 
+      </div>
     </div>
+
     <!-- <mat-toolbar class="sub-toolbar">
       <span >{{mapInfo.firstname}} {{mapInfo.lastname}} | {{mapInfo.company}}</span>
     </mat-toolbar> -->
@@ -46,7 +49,7 @@
   <mat-drawer-content>
     <!-- Map start -->
     <div id="map" class="map-container"> </div>
-<!-- 
+<!--
     <mgl-map [center]="initialCenter" [zoom]="[initialZoom]" (load)="createMap()">
     <mgl-marker *ngFor="let feature of features" [feature]="feature">
       <div (click)="markerClick(feature)">

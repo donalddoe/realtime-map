@@ -34,6 +34,13 @@ body {
   border: 1px solid #555;
 }
 
+.toolbar-section{
+  z-index: 1;
+  left: 0;
+  top: 0;
+  position: relative;
+  position: sticky;
+}
 .drawer-content {
   width: 40vw;
   height: 100%;
@@ -43,11 +50,6 @@ body {
 .toolbar {
   // flex: 0 0 45px;
   font-size: 14px;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  position: relative;
-  position: sticky;
   color: #fff;
   background-color: #1976d2;
   box-sizing: border-box;
@@ -61,11 +63,6 @@ body {
 .section-filter {
   color: #fff;
   width: 100%;
-  position: relative;
-  position: sticky;
-  left: 0;
-  top: 0;
-  z-index: 1;
   box-sizing: border-box;
   white-space: nowrap;
   background-color: rgb(33, 150, 243);
@@ -120,7 +117,7 @@ img {
 //   width: 100%;
 //   left: 0;
 //   top: 0;
-//   z-index: 1; 
+//   z-index: 1;
 //   position: -webkit-sticky; /* Safari */
 //   position: sticky;
 // }
