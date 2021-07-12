@@ -46,8 +46,8 @@ body {
   z-index: 1;
   left: 0;
   top: 0;
-  position: relative;
-  position: sticky;
+  // position: relative;
+  // position: sticky;
   color: #fff;
   background-color: #1976d2;
   box-sizing: border-box;
@@ -59,9 +59,6 @@ body {
 
 
 .section-filter {
-  left: 0;
-  right: 0;
-  z-index: 1;
   width: 100%;
   display: inline-block;
   padding-right: 10px;
@@ -69,7 +66,6 @@ body {
   padding-left: 15px;
   color: #fff;
   background: #2196f3;
-  ;
 }
 
 .filter-box {
@@ -131,6 +127,12 @@ img {
   flex-direction: column;
   flex: 1 1 auto;
   overflow-y: auto;
+  width: 100%;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  position: relative;
+  position: sticky;
 }
 
 .specials{
@@ -206,13 +208,18 @@ img {
   height: 100%;
 }
 
+.mat-list-base .mat-list-item.mat-list-item-with-avatar .mat-list-item-content .mat-list-text, .mat-list-base .mat-list-item.mat-list-option .mat-list-item-content .mat-list-text, .mat-list-base .mat-list-option.mat-list-item-with-avatar .mat-list-item-content .mat-list-text, .mat-list-base .mat-list-option.mat-list-option .mat-list-item-content .mat-list-text {
+  padding-right: 0;
+  padding-left: 16px;
+}
+
 .mat-list-base {
   padding-top: 8px;
     display: block;
     -webkit-tap-highlight-color: transparent;
 }
 
-.mat-list-item-content {
+.mat-list-item .mat-list-item-content, .mat-list-base .mat-list-option .mat-list-item-content {
   display: flex;
     flex-direction: row;
     align-items: center;
@@ -222,13 +229,35 @@ img {
     height: inherit;
 }
 
+.mat-list mat-list-item.mat-list-item .mat-line {
+  white-space: normal;
+  font-size: 14px;
+}
+
+.mat-list-base .mat-list-item .mat-list-text>*, .mat-list-base .mat-list-option .mat-list-text>* {
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  // font-size: inherit;
+}
+
+.mat-list-base .mat-list-item .mat-line {
+  // white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  box-sizing: border-box;
+}
+
 .mat-list-text {
   display: flex;
     flex-direction: column;
     width: 100%;
     box-sizing: border-box;
     overflow: hidden;
+    margin: 0;
     padding: 0;
+    font-weight: 400;
 }
 
 .mat-list-icon{
@@ -242,12 +271,109 @@ img {
     color: #03a9f4;
 }
 
-.mat-line{
-  white-space: normal;
-  font-size: 14px;
-  margin: 0;
-  padding: 0;
-  font-weight: 400;
+.mat-content {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  overflow: hidden;
+}
+
+mat-expansion-panel-header-description, .mat-expansion-panel-header-title {
+  display: flex;
+  flex-grow: 1;
+  margin-right: 16px;
+}
+
+.mat-expansion-panel-content {
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+}
+
+.mat-expansion-panel-body {
+  padding: 0 24px 16px;
+}
+
+.mat-icon {
+  background-repeat: no-repeat;
+  display: inline-block;
+  fill: currentColor;
+}
+
+.material-icons-outlined {
+  font-family: 'Material Icons Outlined';
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+}
+
+.section-container {
+  min-height: 75px;
+  padding: 5px 15px 10px;
+  background-color: #fff;
+  display: block;
+}
+
+.container-heading {
+  color: #666;
+  font-size: 15px;
+  display: block;
+  padding-top: 7px;
+  padding-bottom: 0;
+}
+
+.container-options {
+  display: flex;
+  padding-top: 10px;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+.container-options-item {
+  display: flex;
+  padding: 11px 10px 11px 0;
+  align-self: flex-start;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 50%;
 }
 
 
+.small-icon {
+  width: 20px;
+  height: 20px;
+}
+
+img {
+  vertical-align: middle;
+  border-style: none;
+}
+
+.container-options-item-text {
+  margin-left: 10px;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.inline {
+  display: flex;
+  // color: #000;
+  flex-direction: row;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 22px;
+  // margin-left: 15px;
+  padding: 11px 10px 11px 0;
+  align-self: flex-start;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 50%;
+}

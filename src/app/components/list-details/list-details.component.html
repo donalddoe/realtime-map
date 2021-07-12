@@ -6,33 +6,29 @@
     <mat-toolbar class="toolbar">
       Back to Results
     </mat-toolbar>
-    <div class="section-filter mat-background-accent"  *ngIf="mapDetails" >
+    <div class="section-filter mat-background-accent" *ngIf="mapDetails">
       <div class="filter-box">
-      <div class="filter-title"  *ngIf="mapDetails">
+        <div class="filter-title" *ngIf="mapDetails">
           {{mapDetails.name}}
           <mat-icon class="arrow-down">public</mat-icon>
-      </div>
-      <div class="filter-content">
-        {{mapDetails.city}}
-      </div>
+        </div>
+        <div class="filter-content">
+          {{mapDetails.city}}
+        </div>
       </div>
     </div>
     <!-- <main   fxLayout="column" fxLayoutGap="14px"> -->
-      <mat-grid-list *ngIf="mapDetails" cols="4" rowHeight="5:5" [style.backgroundColor]="'lightgray'">
-        <mat-grid-tile
-      *ngFor="let mapPhoto of mapDetails.photos; let i = index;"
-         [colspan]="mapPhoto.cols"
-          gutterSize="1px"
-          >
-          <span *ngIf="mapDetails" class="map-images">
-              <img
-              mat-card-image src="{{mapPhoto}}">
-          </span>
+    <mat-grid-list *ngIf="mapDetails" cols="4" rowHeight="5:5" [style.backgroundColor]="'lightgray'">
+      <mat-grid-tile *ngFor="let mapPhoto of mapDetails.photos; let i = index;" [colspan]="mapPhoto.cols"
+        gutterSize="1px">
+        <span *ngIf="mapDetails" class="map-images">
+          <img mat-card-image src="{{mapPhoto}}">
+        </span>
 
-        </mat-grid-tile>
-      </mat-grid-list>
+      </mat-grid-tile>
+    </mat-grid-list>
     <!-- </main> -->
-    <mat-tab-group mat-stretch-tabs class="mat-tab-group"  *ngIf="mapDetails">
+    <mat-tab-group mat-stretch-tabs class="mat-tab-group" *ngIf="mapDetails">
       <mat-tab label="Plans">
         <div class="specials">
           <div class="specials__headings">SPECIALS</div>
@@ -41,7 +37,7 @@
           </div>
         </div>
         <div class="floorplans-table" *ngFor="let floorPlan of mapDetails.floorplans">
-          <div class="floorplans-table-row" *ngIf="mapDetails" >
+          <div class="floorplans-table-row" *ngIf="mapDetails">
             <div class="floorplans-table-row-item">{{floorPlan.bed}}Bed, {{floorPlan.bath}}Bath</div>
             <div class="floorplans-table-row-sq">{{floorPlan.sqft}} sqft</div>
           </div>
@@ -60,13 +56,140 @@
           <mat-list-item>
             <div class="mat-list-item-content">
               <div class="mat-list-item-ripple mat-ripple"></div>
-              <mat-icon class="mat-list-icon">pets</mat-icon>
+              <mat-icon mat-list-icon>pets</mat-icon>
               <div class="mat-list-text" *ngIf="mapDetails">
-                <span class="mat-line" matLine></span>
+                <span class="mat-line"
+                  matLine>{{mapDetails.petInfo.breedRestriction? "No Aggressive Breeds" : "Aggressive Breeds"}},
+                  {{mapDetails.petInfo.limit}} Pets Max,
+                  {{mapDetails.petInfo.weight >=255 ? "No Weight Limit" : "Weight Limit"}},
+                  ${{mapDetails.petInfo.extraRent}}/mo extra,
+                  ${{mapDetails.petInfo.nonRefundableFee}} non-refundable deposit
+                </span>
+              </div>
+            </div>
+          </mat-list-item>
+
+          <mat-list-item>
+            <div class="mat-list-item-content">
+              <div class="mat-list-item-ripple mat-ripple"></div>
+              <mat-icon mat-list-icon>local_parking</mat-icon>
+              <div class="mat-list-text" *ngIf="mapDetails">
+                <span class="mat-line"
+                  matLine>{{mapDetails.parking.reserved? "Reserved Parking" : "No Reserved Parking"}}
+                </span>
+              </div>
+            </div>
+          </mat-list-item>
+
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <span class="mat-content">
+                <mat-panel-title>
+                  <mat-icon mat-list-icon>school</mat-icon>
+                  <span class="mat-line"
+                  matLine>{{mapDetails.schoolsInfo.district}} School District</span>
+                </mat-panel-title>
+              </span>
+            </mat-expansion-panel-header>
+            <div class="mat-expansion-panel-content">
+              <div class="mat-expansion-panel-body">
+                <mat-list class="mat-list-base">
+                  <mat-list-item *ngIf="mapDetails">
+                    <div class="mat-list-item-content">
+                      <div class="mat-list-item-ripple mat-ripple"></div>
+                      <mat-icon>school</mat-icon>
+                      <div class="mat-list-text" >
+                        <span class="mat-line"
+                          matLine>{{mapDetails.schoolsInfo.high}} High School
+                        </span>
+                      </div>
+                    </div>
+                  </mat-list-item>
+                  <mat-list-item *ngIf="mapDetails">
+                    <div class="mat-list-item-content">
+                      <div class="mat-list-item-ripple mat-ripple"></div>
+                      <mat-icon>school</mat-icon>
+                      <div class="mat-list-text" >
+                        <span class="mat-line"
+                          matLine>{{mapDetails.schoolsInfo.middle}} Middle School
+                        </span>
+                      </div>
+                    </div>
+                  </mat-list-item>
+                  <mat-list-item *ngIf="mapDetails">
+                    <div class="mat-list-item-content">
+                      <div class="mat-list-item-ripple mat-ripple"></div>
+                      <mat-icon>school</mat-icon>
+                      <div class="mat-list-text" >
+                        <span class="mat-line"
+                          matLine>{{mapDetails.schoolsInfo.elementry}} Elementary School
+                        </span>
+                      </div>
+                    </div>
+                  </mat-list-item>
+                </mat-list>
+              </div>
+            </div>
+          </mat-expansion-panel>
+          <mat-list-item>
+            <div class="mat-list-item-content">
+              <div class="mat-list-item-ripple mat-ripple"></div>
+              <mat-icon mat-list-icon>receipt</mat-icon>
+              <div class="mat-list-text" *ngIf="mapDetails">
+                <span class="mat-line"
+                  matLine>{{mapDetails.appFee |currency}} App fee.
+                  {{mapDetails.adminFee | currency}} Admin Fee
+                </span>
+              </div>
+            </div>
+          </mat-list-item>
+          <mat-list-item>
+            <div class="mat-list-item-content">
+              <div class="mat-list-item-ripple mat-ripple"></div>
+              <mat-icon mat-list-icon>build</mat-icon>
+              <div class="mat-list-text" *ngIf="mapDetails">
+                <span class="mat-line"
+                  matLine>Built {{mapDetails.yearBuilt}}
+                  Renovated {{mapDetails.yearRenovated}}
+                </span>
               </div>
             </div>
           </mat-list-item>
         </mat-list>
+          <mat-divider></mat-divider>
+          <div class="section-container"  *ngIf="mapDetails">
+            <div class="container-heading"  *ngIf="mapDetails">HIGH-VALUE amenities</div>
+            <div class="container-options"  *ngIf="mapDetails">
+              <div class="container-options-item" *ngFor="let apartment of mapDetails.highValueAmenities; let i = index">
+                <img  class="small-icon" src="{{highAmenitiesIcons[i]}}" >
+                <div class="container-options-item-text" > {{apartment}}</div>
+              </div>
+              <div class="container-options-item" >
+                <img  class="small-icon" src="../../../assets/images/more-dots-small.svg" >
+                <div class="container-options-item-text" style="cursor: pointer;"> <p>More</p> </div>
+              </div>
+            </div>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="section-container"  *ngIf="mapDetails">
+            <div class="container-heading"  *ngIf="mapDetails">UNIT OPTIONS</div>
+            <div class="container-options"  *ngIf="mapDetails" class="inline">
+              <div class="container-options-item" *ngFor="let props of mapDetails.propertyAmenities; let i = index">
+                <img  class="small-icon" src="{{communityFeaturesIcon[i]}}" >
+                <div class="container-options-item-text" > {{props}}</div>
+              </div>
+            </div>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="section-container"  *ngIf="mapDetails">
+            <div class="container-heading"  *ngIf="mapDetails">COMMUNITY FEATURES</div>
+            <div class="container-options"  *ngIf="mapDetails">
+              <div class="container-options-item" *ngFor="let propsUnit of mapDetails.unitAmenities; let i = index">
+                <img  class="small-icon" src="{{unitOptionsIcon[i]}}" >
+                <div class="container-options-item-text" > {{propsUnit}}</div>
+              </div>
+            </div>
+          </div>
       </mat-tab>
     </mat-tab-group>
   </mat-drawer>
