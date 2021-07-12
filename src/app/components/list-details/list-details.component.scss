@@ -278,11 +278,32 @@ img {
   overflow: hidden;
 }
 
-mat-expansion-panel-header-description, .mat-expansion-panel-header-title {
+.mat-expansion-panel-header {
   display: flex;
-  flex-grow: 1;
-  margin-right: 16px;
+  flex-direction: row;
+  align-items: center;
+  border-radius: inherit;
 }
+
+.expansion-list-panel .mat-expansion-panel-header {
+  padding: 0 20px;
+  font-size: 14px;
+}
+
+// .mat-expansion-panel {
+//   box-sizing: content-box;
+//   display: block;
+//   margin: 0;
+//   border-radius: 4px;
+//   overflow: hidden;
+//   transition: margin 225ms cubic-bezier(.4,0,.2,1),box-shadow 280ms cubic-bezier(.4,0,.2,1);
+// }
+
+// mat-expansion-panel-header-description, .mat-expansion-panel-header-title {
+//   display: flex;
+//   flex-grow: 1;
+//   margin-right: 16px;
+// }
 
 .mat-expansion-panel-content {
   display: flex;

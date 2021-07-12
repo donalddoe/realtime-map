@@ -8,7 +8,7 @@ import { MapService } from 'src/app/services/map.service';
   styleUrls: ['./list-details.component.scss']
 })
 export class ListDetailsComponent implements OnInit {
-
+  panelOpenState = false;
   mapDetails: any
   constructor(private map: MapService, public loaderService: LoaderService) { }
 

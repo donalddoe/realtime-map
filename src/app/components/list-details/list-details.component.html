@@ -19,7 +19,7 @@
     </div>
     <!-- <main   fxLayout="column" fxLayoutGap="14px"> -->
     <mat-grid-list *ngIf="mapDetails" cols="4" rowHeight="5:5" [style.backgroundColor]="'lightgray'">
-      <mat-grid-tile *ngFor="let mapPhoto of mapDetails.photos; let i = index;" [colspan]="mapPhoto.cols"
+      <mat-grid-tile *ngFor="let mapPhoto of mapDetails.photos" [colspan]="mapPhoto.cols"
         gutterSize="1px">
         <span *ngIf="mapDetails" class="map-images">
           <img mat-card-image src="{{mapPhoto}}">
@@ -68,7 +68,6 @@
               </div>
             </div>
           </mat-list-item>
-
           <mat-list-item>
             <div class="mat-list-item-content">
               <div class="mat-list-item-ripple mat-ripple"></div>
@@ -80,9 +79,8 @@
               </div>
             </div>
           </mat-list-item>
-
-          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-            <mat-expansion-panel-header>
+          <mat-expansion-panel class="mat-expansion-panel" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header class="mat-expansion-panel-header">
               <span class="mat-content">
                 <mat-panel-title>
                   <mat-icon mat-list-icon>school</mat-icon>
