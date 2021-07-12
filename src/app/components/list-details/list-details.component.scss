@@ -20,12 +20,19 @@ body {
   z-index: 99;
 }
 
-.list-containe {
+.list-container {
   background-color: #fafafa;
   flex: 1 1 auto;
   overflow-y: auto;
 }
 
+.section-toolbar{
+  z-index: 1;
+  left: 0;
+  top: 0;
+  position: relative;
+  position: sticky;
+}
 
 .sidebar-container {
   width: 100vw;
@@ -41,18 +48,11 @@ body {
 }
 
 .toolbar {
-  // flex: 0 0 45px;
   font-size: 14px;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  // position: relative;
-  // position: sticky;
   color: #fff;
   background-color: #1976d2;
   box-sizing: border-box;
   white-space: nowrap;
-  // padding: 11px 5px 0 15px
 
 }
 

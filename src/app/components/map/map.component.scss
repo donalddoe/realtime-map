@@ -5,9 +5,17 @@ body {
 
 }
 
+.toolbar-section{
+  z-index: 1;
+  left: 0;
+  top: 0;
+  position: relative;
+  position: sticky;
+}
+
 .map-container {
   width: 100%;
-  // height: 100%;
+  height: 100%;
   position: relative;
 }
 
@@ -34,13 +42,7 @@ body {
   border: 1px solid #555;
 }
 
-.toolbar-section{
-  z-index: 1;
-  left: 0;
-  top: 0;
-  position: relative;
-  position: sticky;
-}
+
 .drawer-content {
   width: 40vw;
   height: 100%;
@@ -48,14 +50,11 @@ body {
 }
 
 .toolbar {
-  // flex: 0 0 45px;
   font-size: 14px;
   color: #fff;
   background-color: #1976d2;
   box-sizing: border-box;
   white-space: nowrap;
-  // padding: 11px 5px 0 15px
-
 }
 
 
@@ -114,19 +113,6 @@ img {
 }
 
 
-
-
-// .sub-toolbar {
-//   background-color: rgb(33, 150, 243);
-//   font-size: 10px;
-//   color: #fff;
-//   width: 100%;
-//   left: 0;
-//   top: 0;
-//   z-index: 1;
-//   position: -webkit-sticky; /* Safari */
-//   position: sticky;
-// }
 
 .mat-card-title {
   color: #000;
