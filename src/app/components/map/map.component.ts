@@ -19,7 +19,6 @@ export class MapComponent implements OnInit {
   features: any[];
   mapInfo: any;
 
-  @ViewChild('drawer') mainDrawer: ElementRef;
 
   mapLoaded = false;
   selectedFeature = null;
@@ -34,7 +33,7 @@ export class MapComponent implements OnInit {
       if (val instanceof NavigationEnd) {
         console.log('current route', this.router.url);
       }
-      
+
   });
     if (this.mapa) {
       this.mapa.setCenter(this.center);
@@ -81,7 +80,6 @@ export class MapComponent implements OnInit {
     );
     this.selectedFeature = feat;
     this.visibility = 'visible';
-    // this.mainDrawer.nativeElement.toggle();
     this.gotoListing(feat);
   }
 
