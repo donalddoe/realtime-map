@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoaderService } from 'src/app/loader/loader.service';
 import { MapService } from 'src/app/services/map.service';
 
@@ -8,16 +10,55 @@ import { MapService } from 'src/app/services/map.service';
   styleUrls: ['./list-details.component.scss']
 })
 export class ListDetailsComponent implements OnInit {
+  history = {...history.state}
+  data = null;
+
+  // @Input() feature: any;
+
   panelOpenState = false;
   mapDetails: any
-  constructor(private map: MapService, public loaderService: LoaderService) { }
+  constructor(private map: MapService, public loaderService: LoaderService, private location: Location, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.setMapDetails()
+    /**
+     * If data (of type feat) was then let us load the details
+     * else return to the map data 
+     */
+
+     this.route.paramMap.subscribe((params) => {
+      const eventId = params.get("id");
+      console.log('event id ', eventId)
+    })
+
+    if (this.history.data) {
+      this.data = this.history.data;
+      console.log('Data', this.data);
+      this.setMapDetails();
+    } else {
+      console.log('we are going back');
+      
+    }
+    // if (this.feature != null) {
+    //   console.log('Feature received ', this.feature);
+    //   this.setMapDetails();
+
+    // } else {
+    //   console.log('We have NO feature')
+    // }
+
+    
+    this.route.paramMap.subscribe((params) => {
+      const eventId = params.get("id");
+      console.log('event id ', eventId)
+    })
   }
 
+
+  back = () => this.location.back();
+
+  
   setMapDetails() {
-    this.map.getListDetails().subscribe(
+    this.map.getListDetails(this.data.listID, this.data.propertyID).subscribe(
       (data) => { this.mapDetails = data
           console.log(this.mapDetails)
       })
