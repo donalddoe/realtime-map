@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MapService } from '../../services/map.service';
 
 import * as mapboxgl from 'mapbox-gl';
 import { environment } from '../../../environments/environment';
 import { IFeature, IGeoJSON } from '../../models/geojson.interface';
 import { LoaderService } from 'src/app/loader/loader.service';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-map',
@@ -18,39 +19,74 @@ export class MapComponent implements OnInit {
   features: any[];
   mapInfo: any;
 
-  constructor(private map: MapService, public loaderService: LoaderService) {}
+  @ViewChild('drawer') mainDrawer: ElementRef;
+
+  mapLoaded = false;
+  selectedFeature = null;
+  visibility = 'visible';
+
+  constructor(
+    private map: MapService,
+    public loaderService: LoaderService,
+    private router: Router
+  ) {
+    this.router.events.subscribe((val) => {
+      if (val instanceof NavigationEnd) {
+        console.log('current route', this.router.url);
+      }
+      
+  });
+    if (this.mapa) {
+      this.mapa.setCenter(this.center);
+    }
+  }
 
   ngOnInit() {
     this.setList();
     this.createMap();
   }
 
+  center: mapboxgl.LngLat = new mapboxgl.LngLat(-97.382, 32.729);
+
   initialCenter = {
     lat: 32.729,
-    lng: -97.382
+    lng: -97.382,
   };
   initialZoom = 11.54;
-//Bed images for the price
-  priceIcons = ['assets/images/1-bed.svg', 'assets/images/2-bed.svg', 'assets/images/3-bed.svg'];
+  //Bed images for the price
+  priceIcons = [
+    'assets/images/1-bed.svg',
+    'assets/images/2-bed.svg',
+    'assets/images/3-bed.svg',
+  ];
 
   markerClick(marker: any) {
     console.log('makr', marker);
-    console.log('type of', typeof(marker))
+    console.log('type of', typeof marker);
 
     this.flyTo(marker.geometry.coordinates);
-    
   }
 
-  flyTo (center, zoom = 15.5) {
+  flyTo(center: mapboxgl.LngLat, zoom = 15.5) {
     this.mapa.flyTo({
       center,
-      zoom
+      zoom,
     });
   }
 
-  sideClick (feat) {
+  sideClick(feat) {
     console.log('feat', feat);
-    this.flyTo(new mapboxgl.LngLat(feat.geocode.Longitude, feat.geocode.Latitude))
+    this.flyTo(
+      new mapboxgl.LngLat(feat.geocode.Longitude, feat.geocode.Latitude)
+    );
+    this.selectedFeature = feat;
+    this.visibility = 'visible';
+    // this.mainDrawer.nativeElement.toggle();
+    this.gotoListing(feat);
+  }
+
+  gotoListing(feat) {
+    this.router.navigate(['/map', feat.propertyID], { state: { data: feat } });
   }
   //Create map with coordinates
   createMap() {
@@ -62,10 +98,9 @@ export class MapComponent implements OnInit {
       accessToken: environment.mapbox.accessToken,
     });
 
-    
-
     // Begin
     this.mapa.on('load', () => {
+      this.mapLoaded = true;
       // Add an image to use as a custom marker
       this.mapa.loadImage(
         '/assets/images/map-circle-red.png',
@@ -95,20 +130,11 @@ export class MapComponent implements OnInit {
               'text-anchor': 'top',
             },
           });
-
-          this.mapa.on('click', (e) => {
-            this.flyTo(e.lngLat);
-
-            // console.log(e);
-    
-            //   this.mapa.setFeatureState (e.point, {radius: 100, layer: 'points'}, function(err, features) {
-            //         console.log(features[0]);
-        
-            //   });
-        
-            });
         }
       );
+    });
+    this.mapa.on('click', (e) => {
+      this.flyTo(e.lngLat);
     });
   }
 

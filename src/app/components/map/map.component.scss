@@ -7,7 +7,7 @@ body {
 
 .map-container {
   width: 100%;
-  height: 100%;
+  // height: 100%;
   position: relative;
 }
 
@@ -20,7 +20,7 @@ body {
   z-index: 99;
 }
 
-.list-containe {
+.list-container {
   background-color: #fafafa;
   flex: 1 1 auto;
   overflow-y: auto;
@@ -105,6 +105,12 @@ img {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.map-content {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
 }
 
 
